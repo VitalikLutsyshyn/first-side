@@ -17,32 +17,32 @@ h1{
 
 header{
     background-color: #AAEEEE;
-    padding: 20px;
 }
 
 main{
-    padding: 5%;
+   
     font-family: "Spectral", serif;
 }
 
-header a{
+/* header a{
     color: #ffffff;
     padding: 5px 15px;
     background:#CCAAEE ;
     text-decoration: none;
     border: 5px solid rgb(255, 255, 255);
     margin-right: 10px;
-}
+} */
 
 .cart-btn{
-    background: red;
-    border-radius: 11px;
+        font-size: 1.12rem;
 }
 
 .menu{
     text-align: center;
     
 }
+
+
 
 footer{
     font-size: 15px;
