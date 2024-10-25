@@ -47,3 +47,12 @@ main{
 footer{
     font-size: 15px;
 }
+
+#carouselExample{
+    width: 100%;
+    
+}
+.carousel-inner{
+    max-height: 400px;
+    overflow: hidden;
+}
