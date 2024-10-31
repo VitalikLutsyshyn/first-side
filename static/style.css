@@ -56,3 +56,25 @@ footer{
     max-height: 400px;
     overflow: hidden;
 }
+
+.card    img{
+    height: 300px;
+    object-fit: contain;
+    /* min-height: ; */
+}
+
+.card-title{
+    max-height: 25px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    transition: max-height 0.3s linear;
+}
+
+.card:hover .card-title{
+    max-height: 125px;
+    transition: max-height 0.2s linear;
+}
+
+.card{
+    transition: max-height 0.3s linear   ;
+}

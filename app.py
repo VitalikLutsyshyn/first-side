@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,request
 from db import DatabaseManager
 app = Flask(__name__)
 
@@ -12,11 +12,16 @@ def index():
     return render_template("index.html", items=products)
 
 
-@app.route("/tech")
-def tech_catefory():
+@app.route("/search")
+def search():
+    products = []
+    if request.method == "GET":
+        search = request.args.get("search")
+        products = db.search_product(search)
+
+    return render_template("index.html", items=products)
     
-    return "Привіт!"
     
 
 if __name__  == "__main__":
-    app.run()
+    app.run(debug=True)

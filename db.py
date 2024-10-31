@@ -17,7 +17,7 @@ class DatabaseManager:
 
     def get_all_products(self):
         self.open()
-        self.cursor.execute("""SELECT id,title,price FROM products """)
+        self.cursor.execute("""SELECT id,title,price,description,quantiti,image,category_id FROM products """)
         products = self.cursor.fetchall()
         self.close()
         return products
