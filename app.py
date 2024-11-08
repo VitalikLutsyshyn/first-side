@@ -20,9 +20,17 @@ def search():
         search = request.args.get("search")
         products = db.search_product(search)
 
-    return render_template("index.html", items=products)
-    
-    
+    return render_template("search.html", items=products)
+
+
+@app.route("/products/<int:product_id>")
+def product_page(product_id):
+    product = db.get_product(product_id)
+
+    return render_template("product_page.html",product=product)
+
+
+
 
 if __name__  == "__main__":
     app.run(debug=True)

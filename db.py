@@ -24,7 +24,10 @@ class DatabaseManager:
     
     def get_product(self,product_id):
         self.open()
-        self.cursor.execute("""SELECT * FROM products WHERE id =? """,[product_id])
+        self.cursor.execute("""SELECT products.id,products.title,products.price,products.description,products.quantiti,products.image,categories.id,categories.title
+                                FROM products
+                                INNER JOIN  categories ON products.category_id=categories.id 
+                                WHERE products.id =? """,[product_id])
         product = self.cursor.fetchone()
         self.close()
         return product
