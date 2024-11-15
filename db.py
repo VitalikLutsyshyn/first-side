@@ -39,19 +39,29 @@ class DatabaseManager:
         self.close()
         return products
 
+
     def search_title_categories(self,categorie):
         self.open()
         # self.cursor.execute("""SELECT id FROM categories WHERE title =? """,[categorie])
         # category_id = self.cursor.fetchone()[0]
         # self.cursor.execute("""SELECT * FROM products WHERE category_id =? """,[category_id])
-        self.cursor.execute("""SELECT products.id,products.title,products.price,categories.title
+        self.cursor.execute("""SELECT products.id,products.title,products.price,products.description,products.quantiti,products.image,categories.id,categories.title
                                 FROM products
                                 INNER JOIN  categories ON products.category_id=categories.id 
-                                WHERE categories.title =? """,[categorie])
+                                WHERE categories.english_title =? """,[categorie])
         products = self.cursor.fetchall()
         self.close()    
         return products
     
+
+    def get_category_title(self,english_title):
+        self.open()
+        self.cursor.execute("""SELECT title FROM categories WHERE english_title =?""",[english_title])
+        title = self.cursor.fetchone()
+        self.close()
+        return title
+
+
     def create_user(self, name, surname, email, phone_number, password):
         self.open()
         self.cursor.execute("""SELECT * FROM users WHERE email=? OR phone_number=?""",[email,phone_number])
@@ -107,6 +117,7 @@ class DatabaseManager:
         self.close()
         return order 
     
+    
     def get_order_list(self,order_id):
         self.open()
         self.cursor.execute("""SELECT pio.product_id,pio.quantity,p.title,p.price
@@ -115,6 +126,14 @@ class DatabaseManager:
                             WHERE pio.order_id = ?
                             """,[order_id])
         products = self.cursor.fetchall()
-        
         self.close()
         return products
+    
+
+    
+    def get_all_categories(self):
+        self.open()
+        self.cursor.execute("""SELECT * FROM categories""")
+        all_categories = self.cursor.fetchall()
+        self.close()
+        return all_categories

@@ -1,3 +1,4 @@
+<!-- Зробити футер -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,13 +48,13 @@
                                 Каталог
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Побутова Техніка</a></li>
-                                <li><a class="dropdown-item" href="#">Електроніка</a></li>
-                                <li><a class="dropdown-item" href="#">Канцтовари</a></li>
+                                {% for category in categories %}
+                                <li><a class="dropdown-item" href="{{ url_for('search_category',category=category[2])}}">{{category[1]}}</a></li>
+                                {% endfor %}
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Усі товари</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('index')}}">Усі товари</a></li>
                             </ul>
                         </li>
                     </ul>

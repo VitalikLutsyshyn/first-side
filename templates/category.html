@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+{% block content %}
+    
+        <section class="container">
+            {% if items %}
+                <h1 class="m-5">Товари в категорії {{title}}</h1>
+                <div class="items row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">
+                    {% for item in items %}
+                    <div class="col">
+                       {% include 'card.html' %}
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h1 class="m-5">За вашим запитом нічого не знайдено</h1>
+            {% endif %}
+
+
+
+        </section>
+
+
+
+    </main>
+{% endblock  %}
