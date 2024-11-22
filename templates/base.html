@@ -19,6 +19,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    
 </head>
 
 <body>
@@ -73,15 +74,50 @@
         {% block content  %}
             
         {% endblock  %}
-    </main>
-    <footer class="container">
-        <a href="https://epicentrk.ua/" target="_blank">Не офіційний сайт епіцентру</a>
-        <p>Номер зв'язку з власником +380974562850</p>
-        <p>Made in China</p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-</body>
 
+
+    </main>
+    
+
+    <footer>
+        <div class="container footer-container ">       
+            <!-- Меню навігації -->
+            <div class="footer-nav">
+                <h3>Меню</h3>
+                <ul>
+                    <li><a href="/">Головна</a></li>
+                    <li><a href="/">Магазин</a></li>
+                    <li><a href="/contact">Контакти</a></li>
+                    <li><a href="/faq">Питання та відповіді</a></li>
+                </ul>
+            </div>
+    
+            <!-- Контактна інформація -->
+            <div class="footer-contact">
+                <h3>Контакти</h3>
+                <p>Телефон: +38 (000) 123-45-67</p>
+                <p>Електронна пошта: support@example.com</p>
+                <p>Адреса: Вулиця, Місто, Україна</p>
+            </div>
+    
+            <!-- Соціальні мережі -->
+            <div class="footer-social">
+                <h3>Ми в соціальних мережах</h3>
+                <ul>
+                    <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                    <li><a href="https://youtube.com" target="_blank">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <!-- Копірайт і додаткова інформація -->
+        <div class="footer-bottom">
+            <p>&copy; 2024 Ваш Інтернет Магазин. Усі права захищені.</p>
+            <p><a href="/terms">Умови використання</a> | <a href="/privacy">Політика конфіденційності</a></p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
 </html>
