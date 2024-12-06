@@ -136,3 +136,10 @@ class DatabaseManager:
         all_categories = self.cursor.fetchall()
         self.close()
         return all_categories
+    
+    def get_cart_product(self):
+        self.open()
+        self.cursor.execute("""SELECT * FROM cart""")
+
+
+    

@@ -63,7 +63,7 @@
                         <input required name="search" class="form-control me-2" type="search" placeholder="Пошук"
                             aria-label="Search">
                         <button class="btn btn-outline-primary" type="submit">Пошук</button>
-                        <a class="btn btn-primary ms-2 btn-lg cart-btn" href=""><i class="bi bi-cart4"></i><a></a>
+                        <button class="btn btn-primary ms-2 btn-lg cart-btn" type="button" data-bs-toggle="modal" data-bs-target="#cart_modal"> <i class="bi bi-cart4"></i><span class="counter">{{cart|length}}</span></button>
                     </form>
                 </div>
 
@@ -111,13 +111,14 @@
                 </ul>
             </div>
         </div>
-    
+
         <!-- Копірайт і додаткова інформація -->
         <div class="footer-bottom">
             <p>&copy; 2024 Ваш Інтернет Магазин. Усі права захищені.</p>
             <p><a href="/terms">Умови використання</a> | <a href="/privacy">Політика конфіденційності</a></p>
         </div>
     </footer>
+    {% include 'cart.html' %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content  %}
+<h1>Реєстрація</h1>
+<form class="container py-5" style="max-width: 700px;" method="post">
+    <div class="mb-3">
+        <label for="name_input" class="form-label">Ім'я</label>
+        <input required type="text" name="name" class="form-control" id="name_input">
+      </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Введіть електрону адресу</label>
+      <input required type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="phone_input" class="form-label">Введіть номер телефону</label>
+        <input required type="tel" name="phone_number" class="form-control" id="phone_input">
+      </div>
+    <div class="mb-3">
+      <label for="InputPassword1" class="form-label">Пароль</label>
+      <input required type="password" name="password" class="form-control" id="InputPassword1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Повторіть пароль</label>
+        <input required type="password" name="password2" class="form-control" id="exampleInputPassword1">
+      </div>
+    <button type="submit" class="btn btn-primary">Зареєструватися</button>
+  </form>
+
+{% endblock  %}

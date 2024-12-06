@@ -1,0 +1,48 @@
+<!-- Modal -->
+<div class="modal fade" id="cart_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable modal-lg modal-fullscreen-sm-down">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Кошик</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        {% if cart|length>0 %}
+        {% for product in cart_products %}
+        <div class="cart-product row my-2" >
+
+           <div class="col-2 text-center">
+            <img class="img-fluid " style="max-height:100px" src="{{ url_for('static', filename='products_img/'+ product[5] )}}">
+           </div>
+
+          <div class="col-6">
+            <a class="cart-link" href="{{ url_for('product_page',product_id=product[0] )}}"><h2>{{product[1]}}</h2></a>
+          </div>
+
+           <div class="col-1">
+            {{cart[product[0]|string]}} шт 
+          </div>
+           <div class="col-2">
+            {{product[2]*cart[product[0]|string]}} грн
+            </div>
+            <div class="col-1">
+              <a href="{{ url_for('delete_product',product_id=product[0] )}}" class="btn" ><svg  xmlns="http://www.w3.org/2000/svg"  width="18"  height="18"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg></a>
+            </div>
+        </div>
+        {% endfor %}
+        <p class="mt-5">Загальна вартість:<b>{{total}} грн</b></p>
+        {%else%} 
+        <h4>У кошику немає товарів</h4>
+        {% endif %} 
+      
+        
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Продовжити покупки</button>
+      <a href="" type="button" class="btn btn-primary">Оформити замовлення</a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div> 

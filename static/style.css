@@ -10,7 +10,11 @@ p {
 h1, h2, h3, h4, h5, h6, header a{
     font-family:"Amatic SC", sans-serif;
 }
- 
+.cart-link{
+    color: black;
+    text-decoration: none;
+}
+
 h1{
     text-align: center;
 }
@@ -24,6 +28,11 @@ main{
     font-family: "Spectral", serif;
 }
 
+h4{
+    color: black;
+}
+
+
 /* header a{
     color: #ffffff;
     padding: 5px 15px;
@@ -34,9 +43,19 @@ main{
 } */
 
 .cart-btn{
-        font-size: 1.12rem;
+    font-size: 1.12rem;
+    position: relative;
 }
-
+.counter{
+    position: absolute ;
+    font-size: 0.8rem;
+    top: -7px;
+    right: -4px;
+    background: blue;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0 5px;
+}
 .menu{
     text-align: center;
     
@@ -73,6 +92,13 @@ main{
     transition: max-height 0.3s linear   ;
 }
 
+.modal-footer{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
 footer {
     background-color: #514e4e;
     color: white;
@@ -84,6 +110,7 @@ footer {
     justify-content: space-between;
     flex-wrap: wrap;
 }
+
 .footer-logo img {
     max-width: 150px;
 }
