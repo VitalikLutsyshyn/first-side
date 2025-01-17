@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% block content  %}
-<h1>ЛОгін</h1>
+<h1>Логін</h1>
+<form class="container py-5" style="max-width: 700px;" method="post" action="">
+  {% include 'alerts.html' %}
 
+    <div class="mb-5">
+      <label for="check_email" class="form-label">Ваша електрона адреса</label>
+      <input required type="email" name="email" class="form-control" id="check_email" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-5">
+      <label for="check_password" class="form-label">Введіть ваш пароль</label>
+      <input required type="password" name="password" class="form-control" id="check_password">
+    </div>
+    <button type="submit" class="btn btn-primary">Увійти</button>
+  </form>
 
 {% endblock  %}

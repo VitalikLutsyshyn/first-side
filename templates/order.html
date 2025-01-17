@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content  %}
+<h1>Доставка</h1>
+<form class="container py-5" style="max-width: 700px;" method="post">
+    <div class="mb-3">
+        <label for="country" class="form-label">Ваша країна</label>
+        <input required type="text" name="name" class="form-control" id="country">
+      </div>
+    <div class="mb-3">
+        <label for="city" class="form-label">Ваше місто</label>
+        <input required type="text" name="name" class="form-control" id="city">
+      </div>
+    <div class="mb-3">
+      <label for="street" class="form-label">Вулиця</label>
+      <input required type="email" name="email" class="form-control" id="street" aria-describedby="emailHelp">
+    </div>
+    <select class="form-select mb-3" aria-label="Default select example">
+        <option selected>Доставщики</option>
+        <option value="1">УкрПошта</option>
+        <option value="2">Нова Пошта</option>
+    </select>
+    <select class="form-select mb-3" aria-label="Default select example">
+        <option selected>Спосіб отриманя замовлення</option>
+        <option value="1">У віділенні</option>
+        <option value="2">Курєром</option>
+        <option value="3">Самовивіз</option>
+    </select>
+<h3>ОПЛАТА ВІДБУВАЄТЬСЯ ТІЛЬКИ У ВІДІЛЕННІ</h3>
+    
+{% endblock  %}

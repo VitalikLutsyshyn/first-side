@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 {% block content  %}
 <h1>Реєстрація</h1>
-<form class="container py-5" style="max-width: 700px;" method="post">
+<form class="container py-5" style="max-width: 700px;" method="post" action="">
+  {% include 'alerts.html' %}
     <div class="mb-3">
         <label for="name_input" class="form-label">Ім'я</label>
-        <input required type="text" name="name" class="form-control" id="name_input">
+        <input  type="text" name="name" class="form-control" id="name_input">
+      </div>
+      <div class="mb-3">
+        <label for="surname_input" class="form-label">Прізвище</label>
+        <input  type="text" name="surname" class="form-control" id="surname_input">
       </div>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Введіть електрону адресу</label>

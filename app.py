@@ -1,13 +1,38 @@
 
-from flask import Flask,render_template,request,session,redirect,url_for
+from flask import Flask,render_template,request,session,redirect,url_for,flash
 from db import DatabaseManager
 from config import SECRET_KEY
+from flask_login import LoginManager, UserMixin, login_user,logout_user,current_user,login_required
+
 
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
-
 db = DatabaseManager("shop_dp.db")
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+
+class User(UserMixin):
+    def __init__(self,id,name,surname,email,phone_number,password):
+        super().__init__()
+        self.id = id
+        self.name=name
+        self.surname = surname
+        self.email=email
+        self.phone_number = phone_number
+        self.password = password
+
+
+@login_manager.user_loader#Підвантаження даних про користувача
+def load_user(user_id):
+    user_data = db.get_user_by_id(user_id)
+    if user_data:
+        return User(user_id,user_data[1],user_data[2],user_data[3],user_data[4],user_data[5] )
+    else:
+        return None
 
 @app.context_processor
 def get_categories():
@@ -67,6 +92,7 @@ def addtocart(product_id):
         cart[str(product_id)] = 1 
     session['cart'] = cart
     session.modified  = True
+    flash("Товар додано в кошик","alert-success")
     return redirect(url_for("product_page", product_id=product_id))
 
 @app.route("/products/remove-from-cart/<int:product_id>")
@@ -76,22 +102,77 @@ def delete_product(product_id):
         del cart[str(product_id)]
     session['cart'] = cart
     session.modified  = True
+    flash("Товар видалено з кошика","alert-danger")
     if request.referrer:
         return redirect(request.referrer)#перенаправлення на попередню сторінку
     else:
         return redirect(url_for("index"))
 
-@app.route("/registration")
+@app.route("/registration", methods=["POST","GET"])#Дозвіл надсилання даних сторінці
 def registration():
+    if request.method == "POST":
+        name = request.form.get("name", "").strip() #в зміну Name Записується імя яке вказано в формі на сайті
+        surname = request.form.get("surname", "").strip()
+        email =request.form.get("email", "").strip()
+        phone_number = request.form.get("phone_number", "").strip()
+        password = request.form.get("password", "").strip()
+        password2 = request.form.get("password2", "").strip()
+        
+        errors = []
+
+        if not name or not email or not phone_number or not password or not password2 or not surname:
+            errors.append("Заповніть всі поля")
+        if "@" not in email:
+            errors.append("Введіть коректний email")
+        if len(password) < 8:
+            errors.append("Пароль має містити хоча б 8 символів")
+        if password != password2:
+            errors.append("Паролі мають співпадати")
+                
+        for symbol in phone_number.replace("(","").replace(")",""):
+            if not symbol.isdigit():
+                errors.append("Номер телефону має бути в форматі 9998887775")
+                break
+        if len(errors)>0:
+            for error in errors:
+                flash(error,"alert-warning")
+        else:
+            db.create_user(name,surname,email,phone_number,password)
+            flash("Ви успішно зареєструвалися","alert-primary")
+    
     return render_template("registration.html")
 
-@app.route("/login")
+
+
+@app.route("/login", methods=["POST","GET"])
 def login():
+    if request.method == "POST":
+        email =request.form.get("email", "").strip()
+        password = request.form.get("password", "").strip()
+
+        if not email or not password:
+            flash("Заповніть всі поля","alert-warming")
+        else:
+            user_db = db.check_user(email,password)
+            if not user_db:
+                flash("Неправильний логін або пароль","alerm-warning")
+            else:
+                user = User(user_db[0],user_db[1],user_db[2],user_db[3],user_db[4],user_db[5] )
+                login_user(user)
+                return redirect(url_for("index"))
+
     return render_template("login.html")
 
-@app.route("/delivery")
-def delivery():
-    return render_template("delivery.html")
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash("Ви вийшли з профілю","alert-primary")
+    return redirect(url_for("login"))
 
+@app.route("/order")
+@login_required
+def order():
+    return render_template("order.html")
 if __name__  == "__main__":
     app.run(debug=True)

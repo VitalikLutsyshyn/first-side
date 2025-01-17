@@ -39,8 +39,21 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ url_for('index')}}">Головна</a>
                         </li>
+                        {% if current_user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('logout')}}">Вийти</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('login')}}">Увіти в акаунт</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('registration')}}">Зареєструватися</a>
+                            </li>
+                        {% endif %}
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Увіти в акаунт</a>
+                            <a class="nav-link" href="">Доставка</a>
                         </li>
 
                         <li class="nav-item dropdown">
