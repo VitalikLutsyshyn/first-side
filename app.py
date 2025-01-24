@@ -170,9 +170,33 @@ def logout():
     flash("Ви вийшли з профілю","alert-primary")
     return redirect(url_for("login"))
 
-@app.route("/order")
+@app.route("/order",methods =["POST","GET"])
 @login_required
 def order():
+
+    if "cart" not in session and len(session["cart"]) == 0:
+        return redirect(request.referrer)
+    
+    if request.method == "POST":
+        country =request.form.get("country", "").strip()
+        city =request.form.get("city", "").strip()
+        street =request.form.get("street", "").strip()
+        comment =request.form.get("comment", "").strip()
+        post_service =request.form.get("post_service", "").strip()
+        delivery_type =request.form.get("delivery_type", "").strip()
+
+        if not country or not city or not street or not comment or not post_service or not delivery_type:
+                flash("Заповніть всі поля","alert-warning")
+        else:           
+            cart = session["cart"]
+            cart_id = db.create_cart(cart)
+            order_id = db.create_order(current_user.id,city,street,comment,cart_id,post_service,delivery_type)
+            flash(f"Ваше замовлення оформлено. Ваш номер замовлення: №{order_id}","alert-success")
+            session["cart"] = {}
+            return redirect(url_for("index"))
+        
     return render_template("order.html")
+
+
 if __name__  == "__main__":
     app.run(debug=True)

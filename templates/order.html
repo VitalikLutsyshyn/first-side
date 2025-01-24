@@ -1,30 +1,38 @@
 {% extends 'base.html' %}
 {% block content  %}
-<h1>Доставка</h1>
-<form class="container py-5" style="max-width: 700px;" method="post">
+<h1 class="py-5">Оформлення замовлення</h1>
+<form class="container pb-5" style="max-width: 700px;" method="post">
+  {% include 'alerts.html' %}
     <div class="mb-3">
         <label for="country" class="form-label">Ваша країна</label>
-        <input required type="text" name="name" class="form-control" id="country">
+        <input required type="text" name="country" class="form-control" id="country">
       </div>
     <div class="mb-3">
         <label for="city" class="form-label">Ваше місто</label>
-        <input required type="text" name="name" class="form-control" id="city">
+        <input required type="text" name="city" class="form-control" id="city">
       </div>
     <div class="mb-3">
       <label for="street" class="form-label">Вулиця</label>
-      <input required type="email" name="email" class="form-control" id="street" aria-describedby="emailHelp">
+      <input required type="text" name="street" class="form-control" id="street" aria-describedby="street">
     </div>
-    <select class="form-select mb-3" aria-label="Default select example">
+    <select name="post_service" class="form-select mb-3" aria-label="Default select example">
         <option selected>Доставщики</option>
-        <option value="1">УкрПошта</option>
-        <option value="2">Нова Пошта</option>
+        <option value="УкрПошта">УкрПошта</option>
+        <option value="Нова Пошта">Нова Пошта</option>
     </select>
-    <select class="form-select mb-3" aria-label="Default select example">
-        <option selected>Спосіб отриманя замовлення</option>
-        <option value="1">У віділенні</option>
-        <option value="2">Курєром</option>
-        <option value="3">Самовивіз</option>
+    <select name="delivery_type" class="form-select mb-3" aria-label="Default select example">
+        <option selected>Спосіб отримання замовлення</option>
+        <option value="У віділенні">У віділенні</option>
+        <option value="Курєром">Курєром</option>
+        <option value="Самовивіз">Самовивіз</option>
     </select>
+
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Коментар</label>
+      <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+
 <h3>ОПЛАТА ВІДБУВАЄТЬСЯ ТІЛЬКИ У ВІДІЛЕННІ</h3>
-    
+<button class="btn btn-primary " type="submit">Підтвердити замовлення</button>
+</form> 
 {% endblock  %}

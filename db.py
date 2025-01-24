@@ -148,8 +148,23 @@ class DatabaseManager:
         self.open()
         self.cursor.execute("""SELECT * FROM cart""")
 
+    def create_cart(self,cart):
+        self.open()
+        self.cursor.execute("""INSERT INTO carts(status) VALUES("new")""")
+        cart_id = self.cursor.lastrowid#отримання id кошиика
+        for product_id in cart:
+            self.cursor.execute("""INSERT INTO product_in_cart(cart_id,product_id,quantity) VALUES(?,?,?)""",[cart_id,int(product_id),cart[product_id]])
+        self.connect.commit()
+        self.close()
+        return cart_id
 
-    #ДЗ
-    # create_cart
-    # add_items_in_cart
-    # create_order
+    def create_order(self,user_id,city,adress,comment,cart_id,post_service,delivery_type):
+        self.open()
+        self.cursor.execute("""INSERT INTO orders(user_id,city,address,comment,cart_id,post_service,delivery_type) VALUES(?,?,?,?,?,?,?)""",
+                            [user_id,city,adress,comment,cart_id,post_service,delivery_type])
+        order_id = self.cursor.lastrowid
+        self.connect.commit()
+        self.close()
+        return order_id
+    
+
