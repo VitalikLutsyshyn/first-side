@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content  %}
+<h1 class="pt-5">Мої замовлення</h1>
+<div class="container py-5">
+    <div class="accordion" id="accordionExample">
+            {% for order in orders %}
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{order[0]}}" aria-expanded="true" aria-controls="collapseOne">
+                   <h3>замовлення №{{order[0]}}</h3> 
+                  </button>
+                </h2>
+                <div id="collapse{{order[0]}}" class="accordion-collapse  collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                        <h5>Дані доставки:</h5>
+                        <p> Адреса:
+                            {{order[1]}}
+                            {{order[2]}}
+                        </p>
+                        <p>Служба доставки:{{order[5]}}</p>
+                        <p>Тип доставки:{{order[6]}}</p>
+                        <p>{{order[7]}}</p>
+                    </div>
+                </div>
+            </div> 
+            {% endfor %}
+
+</div>
+
+{% endblock  %}

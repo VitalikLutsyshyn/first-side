@@ -39,7 +39,9 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Продовжити покупки</button>
-      <a href="{{ url_for('order')}}" type="button" class="btn btn-primary">Оформити замовлення</a>
+      {% if cart|length>0 %}
+        <a href="{{ url_for('order')}}" type="button" class="btn btn-primary">Оформити замовлення</a>
+      {% endif %} 
     </div>
   </div>
 </div>

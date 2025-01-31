@@ -167,4 +167,15 @@ class DatabaseManager:
         self.close()
         return order_id
     
+    def get_user_orders(self,user_id):
+        self.open()
+        self.cursor.execute("""SELECT o.id,o.city,o.address,o.comment,o.cart_id,o.post_service,o.delivery_type,p.title,p.price,pic.quantity FROM orders o
+                            INNER JOIN product_in_cart pic ON o.cart_id= pic.cart_id
+                            INNER JOIN products p ON pic.product_id = p.id
+                             WHERE o.user_id = ?
+                            GROUP BY o.id   
+                            """,[user_id])
+        user_orders = self.cursor.fetchall()
+        self.close()
+        return user_orders
 

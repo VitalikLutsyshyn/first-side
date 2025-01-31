@@ -5,7 +5,6 @@ from config import SECRET_KEY
 from flask_login import LoginManager, UserMixin, login_user,logout_user,current_user,login_required
 
 
-
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
 db = DatabaseManager("shop_dp.db")
@@ -13,8 +12,8 @@ db = DatabaseManager("shop_dp.db")
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
-
-
+login_manager.login_message_category = "alert-warning"
+login_manager.login_message = "Зареєструйтеся або увійдіть в акаунт, щоб продовжити"
 class User(UserMixin):
     def __init__(self,id,name,surname,email,phone_number,password):
         super().__init__()
@@ -24,7 +23,6 @@ class User(UserMixin):
         self.email=email
         self.phone_number = phone_number
         self.password = password
-
 
 @login_manager.user_loader#Підвантаження даних про користувача
 def load_user(user_id):
@@ -139,7 +137,7 @@ def registration():
         else:
             db.create_user(name,surname,email,phone_number,password)
             flash("Ви успішно зареєструвалися","alert-primary")
-    
+            return redirect(url_for("login"))
     return render_template("registration.html")
 
 
@@ -174,9 +172,12 @@ def logout():
 @login_required
 def order():
 
-    if "cart" not in session and len(session["cart"]) == 0:
-        return redirect(request.referrer)
-    
+    if "cart" not in session or len(session["cart"]) == 0:
+        if request.referrer:
+            return redirect(request.referrer)
+        else:
+            return redirect(url_for("index"))
+        
     if request.method == "POST":
         country =request.form.get("country", "").strip()
         city =request.form.get("city", "").strip()
@@ -196,6 +197,15 @@ def order():
             return redirect(url_for("index"))
         
     return render_template("order.html")
+
+
+@app.route("/my_orders")
+@login_required
+def my_orders():
+    orders = db.get_user_orders(current_user.id)
+
+    return render_template("user_orders.html",orders=orders)
+
 
 
 if __name__  == "__main__":
