@@ -169,13 +169,30 @@ class DatabaseManager:
     
     def get_user_orders(self,user_id):
         self.open()
-        self.cursor.execute("""SELECT o.id,o.city,o.address,o.comment,o.cart_id,o.post_service,o.delivery_type,p.title,p.price,pic.quantity FROM orders o
+        self.cursor.execute("""SELECT o.id,o.city,o.address,o.comment,o.cart_id,o.post_service,o.delivery_type,pic.product_id,pic.quantity FROM orders o
                             INNER JOIN product_in_cart pic ON o.cart_id= pic.cart_id
-                            INNER JOIN products p ON pic.product_id = p.id
-                             WHERE o.user_id = ?
-                            GROUP BY o.id   
-                            """,[user_id])
+                            WHERE o.user_id = ?
+                            ORDER BY o.id DESC
+                            """,[user_id])#Order By 0.id DESC --Сортування даних в зворотньому порядку
         user_orders = self.cursor.fetchall()
         self.close()
-        return user_orders
+
+        orders = {}
+        for product in user_orders:
+            if product[0] not in orders: 
+                orders[product[0]] = {
+                    "city":product[1],
+                    "address":product[2],
+                    "comment":product[3],
+                    "post_service":product[5],
+                    "delivery_type":product[6],
+                    "products_in":[],
+                    "total":0
+                }
+            product_db = list(self.get_product(product[7])) + product[8]
+            orders[product[0]]["products_in"].append(product_db)
+            orders[product[0]]["total"]+=product_db[2]*product[8]
+            
+
+        return orders
 

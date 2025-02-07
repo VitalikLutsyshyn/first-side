@@ -42,7 +42,7 @@ def get_categories():
         for product_id in cart:
             product = db.get_product(product_id)
             cart_products.append(product)
-            total += product[2] * cart[str(product_id)]           
+            total += product[2] * cart[str(product_id)]
 
     return dict(categories=categories,cart=cart,cart_products=cart_products,total=total)
 
