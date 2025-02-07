@@ -189,7 +189,7 @@ class DatabaseManager:
                     "products_in":[],
                     "total":0
                 }
-            product_db = list(self.get_product(product[7])) + product[8]
+            product_db = list(self.get_product(product[7])) + [product[8]]
             orders[product[0]]["products_in"].append(product_db)
             orders[product[0]]["total"]+=product_db[2]*product[8]
             
